@@ -1,6 +1,6 @@
 {
 	"name": "scroll-behavior-polyfill",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A polyfill for the 'scroll-behavior' CSS-property",
 	"scripts": {
 		"changelog:generate": "conventional-changelog --outfile CHANGELOG.md --release-count 0",
