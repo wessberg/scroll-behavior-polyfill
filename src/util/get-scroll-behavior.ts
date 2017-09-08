@@ -20,7 +20,10 @@ export function getScrollBehavior (element: HTMLElement): ScrollBehaviorKind {
 			// Slice the attribute value from after the ':' sign and up until the next ';' (or to the end if it is the last or only style property)
 			val = attribute.slice(indexOfScrollBehavior + "scroll-behavior:".length, endIndexOfScrollBehavior < 0 ? undefined : endIndexOfScrollBehavior).trim();
 		}
-	} else {
+	}
+
+	// If 'val' is still null, no match was found as an inline-style
+	if (val == null) {
 		/*tslint:disable*/
 		val = (<any>element.style).scrollBehavior;
 		/*tslint:enable*/
