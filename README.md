@@ -11,7 +11,10 @@
 
 ## Description
 
-The scroll-behavior CSS property sets the behavior for a scrolling box when scrolling is triggered by the navigation or CSSOM scrolling APIs.
+The `scroll-behavior` CSS property sets the behavior for a scrolling box when scrolling is triggered by the navigation or CSSOM scrolling APIs.
+This polyfill brings this new feature to all browsers.
+
+It is very efficient, tiny, and works with the latest browser technologies such as Shadow DOM.
 
 ## Install
 
