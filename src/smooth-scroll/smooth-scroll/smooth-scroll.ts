@@ -7,8 +7,6 @@ import {ease} from "../../util/easing";
  */
 const SCROLL_TIME = 15000;
 
-HTMLAnchorElement
-
 /**
  * Performs a smooth repositioning of the scroll
  * @param {ISmoothScrollOptions} options

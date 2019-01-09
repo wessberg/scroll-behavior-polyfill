@@ -3,7 +3,7 @@
  * but has been rewritten to accept a scroller as an argument.
  */
 
-// tslint:disable:interface-name
+// tslint:disable
 
 interface IVisualViewport {
 	height: number;
