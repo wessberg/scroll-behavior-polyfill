@@ -1,34 +1,62 @@
-import {ScrollBehaviorKind} from "../scroll-behavior-kind/scroll-behavior-kind";
+const styleDeclarationPropertyName = "scrollBehavior" as keyof CSSStyleDeclaration;
+const styleAttributePropertyName = "scroll-behavior";
+const styleAttributePropertyNameRegex = new RegExp(`${styleAttributePropertyName}:\\s*([^;]*)`);
+export type ScrollBehaviorRawValue = ScrollBehavior|null|"";
 
 /**
- * Get the current scroll behavior of an HTMLElement
- * @param {HTMLElement} element
- * @returns {ScrollBehaviorKind}
+ * Determines the scroll behavior to use, depending on the given ScrollOptions and the position of the Element
+ * within the DOM
+ * @param {Element|HTMLElement|Window} inputTarget
+ * @param {ScrollOptions} [options]
+ * @returns {ScrollBehavior}
  */
-export function getScrollBehavior (element: HTMLElement): ScrollBehaviorKind {
-	let val: string|null = null;
+export function getScrollBehavior (inputTarget: Element|HTMLElement|Window, options?: ScrollOptions): ScrollBehavior|undefined {
+	// If the given 'behavior' is 'smooth', apply smooth scrolling no matter what
+	if (options != null && options.behavior === "smooth") return "smooth";
 
-	// First, check as an attribute
-	const attribute = element.getAttribute("style");
-	if (attribute != null) {
-		// Find the position within the string where 'scroll-behavior' is declare (if it is).
-		const indexOfScrollBehavior = attribute.indexOf("scroll-behavior");
+	const target: HTMLElement = "style" in inputTarget ? inputTarget : document.scrollingElement != null ? document.scrollingElement as HTMLElement : document.documentElement;
 
-		if (indexOfScrollBehavior >= 0) {
-			// Check where it ends. If it never sees a ';', it is the last (or only) style property of the string
-			const endIndexOfScrollBehavior = attribute.indexOf(";", indexOfScrollBehavior);
-			// Slice the attribute value from after the ':' sign and up until the next ';' (or to the end if it is the last or only style property)
-			val = attribute.slice(indexOfScrollBehavior + "scroll-behavior:".length, endIndexOfScrollBehavior < 0 ? undefined : endIndexOfScrollBehavior).trim();
+	let value: ScrollBehavior|undefined;
+
+	if ("style" in target) {
+		// Check if scroll-behavior is set as a property on the CSSStyleDeclaration
+		const scrollBehaviorPropertyValue = target.style[styleDeclarationPropertyName] as ScrollBehaviorRawValue;
+		// Return it if it is given and has a proper value
+		if (scrollBehaviorPropertyValue != null && scrollBehaviorPropertyValue !== "") {
+			value = scrollBehaviorPropertyValue;
 		}
 	}
 
-	// If 'val' is still null, no match was found as an inline-style
-	if (val == null) {
-		/*tslint:disable*/
-		val = (<any>element.style).scrollBehavior;
-		/*tslint:enable*/
+	if (value == null) {
+		const attributeValue = target.getAttribute("scroll-behavior");
+		if (attributeValue != null && attributeValue !== "") {
+			value = attributeValue as ScrollBehavior;
+		}
 	}
 
-	/*tslint:enable:no-any*/
-	return val === ScrollBehaviorKind.SMOOTH ? ScrollBehaviorKind.SMOOTH : ScrollBehaviorKind.AUTO;
+	if (value == null) {
+		// Otherwise, check if it is set as an inline style
+		const styleAttributeValue = target.getAttribute("style");
+		if (styleAttributeValue != null && styleAttributeValue.includes(styleAttributePropertyName)) {
+			const match = styleAttributeValue.match(styleAttributePropertyNameRegex);
+			if (match != null) {
+				const [, behavior] = match;
+				if (behavior != null && behavior !== "") {
+					value = behavior as ScrollBehavior;
+				}
+			}
+		}
+	}
+
+	if (value == null) {
+		// Take the computed style for the element and see if it contains a specific 'scroll-behavior' value
+		const computedStyle = getComputedStyle(target);
+		const computedStyleValue = computedStyle.getPropertyValue("scrollBehavior") as ScrollBehaviorRawValue;
+		if (computedStyleValue != null && computedStyleValue !== "") {
+			value = computedStyleValue;
+		}
+	}
+
+	// In all other cases, use the value from the CSSOM
+	return value;
 }

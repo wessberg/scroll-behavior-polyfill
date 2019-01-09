@@ -1,42 +1,55 @@
 import {ISmoothScrollOptions} from "../smooth-scroll-options/i-smooth-scroll-options";
-import {updateScrollPosition} from "../../update-scroll-position/update-scroll-position";
 import {now} from "../../util/now";
+import {WINDOW_ORIGINAL_SCROLL_TO} from "../../original/window/scroll-to";
+import {ELEMENT_ORIGINAL_SCROLL_TO} from "../../original/element/scroll-to";
+
+export type ScrollMethodName = "scroll"|"scrollBy"|"scrollTo";
 
 /**
  * Gets the Smooth Scroll Options to use for the step function
- * @param {HTMLElement|Window} element
+ * @param {Element|Window} element
  * @param {number} x
  * @param {number} y
- * @param {Function} originalFunction
+ * @param {ScrollMethodName} kind
  * @returns {ISmoothScrollOptions}
  */
-export function getSmoothScrollOptions (element: HTMLElement|Window, x: number, y: number, originalFunction: Function): ISmoothScrollOptions {
+export function getSmoothScrollOptions (element: Element|Window, x: number, y: number, kind: ScrollMethodName): ISmoothScrollOptions {
 	const startTime = now();
 
 	if (!(element instanceof Element)) {
 		// Use window as the scroll container
 		const {scrollX, pageXOffset, scrollY, pageYOffset} = window;
+		const startX = scrollX == null || scrollX === 0 ? pageXOffset : scrollX;
+		const startY = scrollY == null || scrollY === 0 ? pageYOffset : scrollY;
 		return {
-			element: window,
-			startX: scrollX == null || scrollX === 0 ? pageXOffset : scrollX,
-			startY: scrollY == null || scrollY === 0 ? pageYOffset : scrollY,
-			method: originalFunction,
 			startTime,
-			x,
-			y
+			startX,
+			startY,
+			endX: Math.floor(kind === "scrollBy"
+				? startX + x
+				: x),
+			endY: Math.floor(kind === "scrollBy"
+				? startY + y
+				: y),
+			method: WINDOW_ORIGINAL_SCROLL_TO.bind(window)
 		};
 	}
 
 	else {
 		const {scrollLeft, scrollTop} = element;
+		const startX = scrollLeft;
+		const startY = scrollTop;
 		return {
-			element,
-			startX: scrollLeft,
-			startY: scrollTop,
-			x,
-			y,
 			startTime,
-			method: updateScrollPosition.bind(element, element)
+			startX,
+			startY,
+			endX: kind === "scrollBy"
+				? startX + x
+				: x,
+			endY: kind === "scrollBy"
+				? startY + y
+				: y,
+			method: ELEMENT_ORIGINAL_SCROLL_TO.bind(element)
 		};
 	}
 }

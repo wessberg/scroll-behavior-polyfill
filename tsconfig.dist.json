@@ -1,8 +1,7 @@
 {
 	"extends": "./tsconfig.json",
 	"include": [
-		"src/**/*.*",
-		"typings/**/*.*"
+		"src/**/*.*"
 	],
 	"compilerOptions": {
 		"declaration": true

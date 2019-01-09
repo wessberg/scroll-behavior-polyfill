@@ -1,38 +1,45 @@
 import {ISmoothScrollOptions} from "../smooth-scroll-options/i-smooth-scroll-options";
 import {ease} from "../../util/easing";
-import {now} from "../../util/now";
 
 /**
  * The duration of a smooth scroll
  * @type {number}
  */
-const SCROLL_TIME = 200;
+const SCROLL_TIME = 15000;
+
+HTMLAnchorElement
 
 /**
  * Performs a smooth repositioning of the scroll
  * @param {ISmoothScrollOptions} options
  */
 export function smoothScroll (options: ISmoothScrollOptions): void {
-	const {startTime, startX, startY, x, y, method, element} = options;
-	const currentTime = now();
-	let value;
-	let currentX;
-	let currentY;
-	let elapsed = (currentTime - startTime) / SCROLL_TIME;
+	const {startTime, startX, startY, endX, endY, method} = options;
 
-	// avoid elapsed times higher than one
-	elapsed = elapsed > 1 ? 1 : elapsed;
+	let timeLapsed = 0;
+	let start: number|undefined;
 
-	// apply easing to elapsed time
-	value = ease(elapsed);
+	const distanceX = endX - startX;
+	const distanceY = endY - startY;
+	const speed = Math.max(
+		Math.abs(distanceX / 1000 * SCROLL_TIME),
+		Math.abs(distanceY / 1000 * SCROLL_TIME)
+	);
 
-	currentX = startX + (x - startX) * value;
-	currentY = startY + (y - startY) * value;
+	requestAnimationFrame(function animate (timestamp: number) {
+		if (start == null) {
+			start = timestamp;
+		}
+		timeLapsed += timestamp - startTime;
+		const percentage = Math.max(0, Math.min(1, speed === 0 ? 0 : (timeLapsed / speed)));
+		const positionX = Math.floor(startX + (distanceX * ease(percentage)));
+		const positionY = Math.floor(startY + (distanceY * ease(percentage)));
 
-	method.call(element, currentX, currentY);
+		method(positionX, positionY);
 
-	// scroll more if we have not reached our destination
-	if (currentX !== x || currentY !== y) {
-		requestAnimationFrame(() => smoothScroll(options));
-	}
+		if (positionX !== endX || positionY !== endY) {
+			requestAnimationFrame(animate);
+			start = timestamp;
+		}
+	});
 }

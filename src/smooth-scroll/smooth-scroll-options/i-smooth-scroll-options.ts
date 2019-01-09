@@ -1,9 +1,8 @@
 export interface ISmoothScrollOptions {
 	startX: number;
 	startY: number;
+	endX: number;
+	endY: number;
 	startTime: number;
-	x: number;
-	y: number;
-	element: HTMLElement|Window;
-	method: Function;
+	method (x: number, y: number): void;
 }

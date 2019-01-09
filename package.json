@@ -2,41 +2,58 @@
 	"name": "scroll-behavior-polyfill",
 	"version": "1.0.2",
 	"description": "A polyfill for the 'scroll-behavior' CSS-property",
-	"scripts": {
-		"changelog:generate": "conventional-changelog --outfile CHANGELOG.md --release-count 0",
-		"readme:badges": "node node_modules/@wessberg/ts-config/readme/badge/helper/add-badges.js",
-		"readme:refresh": "npm run changelog:generate && npm run readme:badges",
-		"commit:readme": "npm run readme:refresh && git commit -am \"Bumped version\" --no-verify || true",
-		"clean:dist": "rm -r -f dist",
-		"clean": "npm run clean:dist",
-		"rollup": "rollup -c rollup.config.js",
-		"rollup:watch": "rollup -c rollup.config.js --watch",
-		"prebuild": "npm run clean",
-		"build": "npm run rollup",
-		"prewatch": "npm run clean",
-		"watch": "npm run rollup:watch",
-		"tslint": "tslint -c tslint.json -p tsconfig.json",
-		"validate": "npm run tslint && npm run test",
-		"test": "NODE_ENV=TEST echo \"skipping tests...\"",
-		"prepublishOnly": "NODE_ENV=production npm run validate && npm run build",
-		"precommit": "npm run tslint && exit 0",
-		"prepush": "npm run validate && exit 0",
-		"publish:major": "npm version major && npm run commit:readme && git push && npm publish",
-		"publish:minor": "npm version minor && npm run commit:readme && git push && npm publish",
-		"publish:patch": "npm version patch && npm run commit:readme && git push && npm publish"
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/wessberg/scroll-behavior-polyfill.git"
 	},
-	"keywords": [],
+	"bugs": {
+		"url": "https://github.com/wessberg/scroll-behavior-polyfill/issues"
+	},
+	"scripts": {
+		"generate:readme": "scaffold readme",
+		"generate:license": "scaffold license",
+		"generate:contributing": "scaffold contributing",
+		"generate:coc": "scaffold coc",
+		"generate:changelog": "standard-changelog --first-release",
+		"generate:all": "npm run generate:license & npm run generate:contributing & npm run generate:coc & npm run generate:readme  & npm run generate:changelog",
+		"update": "ncu -ua && npm update && npm install",
+		"lint": "tsc --noEmit && tslint -c tslint.json --project tsconfig.json",
+		"prerollup": "rm -r -f dist",
+		"rollup": "rollup -c rollup.config.js",
+		"prepare": "npm run rollup",
+		"publish:before": "NODE_ENV=production npm run lint && NODE_ENV=production npm run prepare && npm run generate:all && git add . && git commit -am \"Bumped version\" || true",
+		"publish:after": "git push && npm publish",
+		"publish:patch": "npm run publish:before && npm version patch && npm run publish:after",
+		"publish:minor": "npm run publish:before && npm version minor && npm run publish:after",
+		"publish:major": "npm run publish:before && npm version major && npm run publish:after"
+	},
+	"files": [
+		"dist/**/*.*"
+	],
+	"keywords": [
+		"scroll-behavior",
+		"polyfill",
+		"css",
+		"smooth",
+		"scroll behavior"
+	],
+	"author": {
+		"name": "Frederik Wessberg",
+		"email": "frederikwessberg@hotmail.com",
+		"url": "https://github.com/wessberg"
+	},
+	"license": "MIT",
 	"devDependencies": {
-		"@wessberg/environment": "^1.0.1",
-		"@wessberg/ts-config": "0.0.23",
-		"conventional-changelog-cli": "^1.3.3",
-		"husky": "latest",
-		"rollup": "^0.49.2",
-		"rollup-plugin-typescript2": "^0.5.2",
-		"rollup-plugin-uglify": "^2.0.1",
-		"rollup-watch": "^4.3.1",
-		"tslint": "^5.7.0",
-		"typescript": "2.5.2"
+		"@wessberg/rollup-plugin-ts": "1.1.17",
+		"@wessberg/scaffold": "1.0.5",
+		"@wessberg/ts-config": "^0.0.34",
+		"npm-check-updates": "^2.15.0",
+		"rollup": "^1.0.2",
+		"rollup-plugin-node-resolve": "^4.0.0",
+		"tslib": "^1.9.3",
+		"tslint": "^5.12.0",
+		"typescript": "^3.2.2",
+		"standard-changelog": "^2.0.6"
 	},
 	"dependencies": {},
 	"main": "./dist/index.js",
@@ -45,20 +62,19 @@
 	"types": "./dist/index.d.ts",
 	"typings": "./dist/index.d.ts",
 	"es2015": "./dist/index.js",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/wessberg/scroll-behavior-polyfill.git"
-	},
-	"bugs": {
-		"url": "https://github.com/wessberg/scroll-behavior-polyfill/issues"
-	},
-	"author": {
-		"name": "Frederik Wessberg",
-		"email": "frederikwessberg@hotmail.com",
-		"url": "https://github.com/wessberg"
-	},
 	"engines": {
-		"node": ">=7.4.0"
+		"node": ">=9.0.0"
 	},
-	"license": "MIT"
+	"scaffold": {
+		"patreonUserId": "11315442",
+		"contributorMeta": {
+			"Frederik Wessberg": {
+				"imageUrl": "https://avatars2.githubusercontent.com/u/20454213?s=460&v=4",
+				"role": "Maintainer",
+				"twitterHandle": "FredWessberg",
+				"isCocEnforcer": true
+			}
+		},
+		"backers": []
+	}
 }
