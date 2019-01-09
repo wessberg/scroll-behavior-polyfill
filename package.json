@@ -1,80 +1,80 @@
 {
-	"name": "scroll-behavior-polyfill",
-	"version": "1.0.2",
-	"description": "A polyfill for the 'scroll-behavior' CSS-property",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/wessberg/scroll-behavior-polyfill.git"
-	},
-	"bugs": {
-		"url": "https://github.com/wessberg/scroll-behavior-polyfill/issues"
-	},
-	"scripts": {
-		"generate:readme": "scaffold readme",
-		"generate:license": "scaffold license",
-		"generate:contributing": "scaffold contributing",
-		"generate:coc": "scaffold coc",
-		"generate:changelog": "standard-changelog --first-release",
-		"generate:all": "npm run generate:license & npm run generate:contributing & npm run generate:coc & npm run generate:readme  & npm run generate:changelog",
-		"update": "ncu -ua && npm update && npm install",
-		"lint": "tsc --noEmit && tslint -c tslint.json --project tsconfig.json",
-		"prerollup": "rm -r -f dist",
-		"rollup": "rollup -c rollup.config.js",
-		"prepare": "npm run rollup",
-		"publish:before": "NODE_ENV=production npm run lint && NODE_ENV=production npm run prepare && npm run generate:all && git add . && git commit -am \"Bumped version\" || true",
-		"publish:after": "git push && npm publish",
-		"publish:patch": "npm run publish:before && npm version patch && npm run publish:after",
-		"publish:minor": "npm run publish:before && npm version minor && npm run publish:after",
-		"publish:major": "npm run publish:before && npm version major && npm run publish:after"
-	},
-	"files": [
-		"dist/**/*.*"
-	],
-	"keywords": [
-		"scroll-behavior",
-		"polyfill",
-		"css",
-		"smooth",
-		"scroll behavior"
-	],
-	"author": {
-		"name": "Frederik Wessberg",
-		"email": "frederikwessberg@hotmail.com",
-		"url": "https://github.com/wessberg"
-	},
-	"license": "MIT",
-	"devDependencies": {
-		"@wessberg/rollup-plugin-ts": "1.1.17",
-		"@wessberg/scaffold": "1.0.5",
-		"@wessberg/ts-config": "^0.0.34",
-		"npm-check-updates": "^2.15.0",
-		"rollup": "^1.0.2",
-		"rollup-plugin-node-resolve": "^4.0.0",
-		"tslib": "^1.9.3",
-		"tslint": "^5.12.0",
-		"typescript": "^3.2.2",
-		"standard-changelog": "^2.0.6"
-	},
-	"dependencies": {},
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"browser": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"typings": "./dist/index.d.ts",
-	"es2015": "./dist/index.js",
-	"engines": {
-		"node": ">=9.0.0"
-	},
-	"scaffold": {
-		"patreonUserId": "11315442",
-		"contributorMeta": {
-			"Frederik Wessberg": {
-				"imageUrl": "https://avatars2.githubusercontent.com/u/20454213?s=460&v=4",
-				"role": "Maintainer",
-				"twitterHandle": "FredWessberg",
-				"isCocEnforcer": true
-			}
-		},
-		"backers": []
-	}
+  "name": "scroll-behavior-polyfill",
+  "version": "2.0.0",
+  "description": "A polyfill for the 'scroll-behavior' CSS-property",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wessberg/scroll-behavior-polyfill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wessberg/scroll-behavior-polyfill/issues"
+  },
+  "scripts": {
+    "generate:readme": "scaffold readme",
+    "generate:license": "scaffold license",
+    "generate:contributing": "scaffold contributing",
+    "generate:coc": "scaffold coc",
+    "generate:changelog": "standard-changelog --first-release",
+    "generate:all": "npm run generate:license & npm run generate:contributing & npm run generate:coc & npm run generate:readme  & npm run generate:changelog",
+    "update": "ncu -ua && npm update && npm install",
+    "lint": "tsc --noEmit && tslint -c tslint.json --project tsconfig.json",
+    "prerollup": "rm -r -f dist",
+    "rollup": "rollup -c rollup.config.js",
+    "prepare": "npm run rollup",
+    "publish:before": "NODE_ENV=production npm run lint && NODE_ENV=production npm run prepare && npm run generate:all && git add . && git commit -am \"Bumped version\" || true",
+    "publish:after": "git push && npm publish",
+    "publish:patch": "npm run publish:before && npm version patch && npm run publish:after",
+    "publish:minor": "npm run publish:before && npm version minor && npm run publish:after",
+    "publish:major": "npm run publish:before && npm version major && npm run publish:after"
+  },
+  "files": [
+    "dist/**/*.*"
+  ],
+  "keywords": [
+    "scroll-behavior",
+    "polyfill",
+    "css",
+    "smooth",
+    "scroll behavior"
+  ],
+  "author": {
+    "name": "Frederik Wessberg",
+    "email": "frederikwessberg@hotmail.com",
+    "url": "https://github.com/wessberg"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@wessberg/rollup-plugin-ts": "1.1.17",
+    "@wessberg/scaffold": "1.0.5",
+    "@wessberg/ts-config": "^0.0.34",
+    "npm-check-updates": "^2.15.0",
+    "rollup": "^1.0.2",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "tslib": "^1.9.3",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2",
+    "standard-changelog": "^2.0.6"
+  },
+  "dependencies": {},
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "browser": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
+  "es2015": "./dist/index.js",
+  "engines": {
+    "node": ">=9.0.0"
+  },
+  "scaffold": {
+    "patreonUserId": "11315442",
+    "contributorMeta": {
+      "Frederik Wessberg": {
+        "imageUrl": "https://avatars2.githubusercontent.com/u/20454213?s=460&v=4",
+        "role": "Maintainer",
+        "twitterHandle": "FredWessberg",
+        "isCocEnforcer": true
+      }
+    },
+    "backers": []
+  }
 }
