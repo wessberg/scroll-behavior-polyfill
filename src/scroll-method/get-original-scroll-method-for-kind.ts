@@ -5,14 +5,14 @@ import {ELEMENT_ORIGINAL_SCROLL_BY} from "../original/element/scroll-by";
 import {WINDOW_ORIGINAL_SCROLL_BY} from "../original/window/scroll-by";
 import {ELEMENT_ORIGINAL_SCROLL_TO} from "../original/element/scroll-to";
 import {WINDOW_ORIGINAL_SCROLL_TO} from "../original/window/scroll-to";
-import {AdjustableElement} from "../adjustable-element/adjustable-element";
+import {IAdjustableElement} from "../adjustable-element/i-adjustable-element";
 
 /**
  * A fallback if Element.prototype.scroll is not defined
  * @param {number} x
  * @param {number} y
  */
-function elementPrototypeScrollFallback (this: AdjustableElement, x: number, y: number): void {
+function elementPrototypeScrollFallback (this: IAdjustableElement, x: number, y: number): void {
 	this.__adjustingScrollPosition = true;
 	this.scrollLeft = x;
 	this.scrollTop = y;
@@ -24,7 +24,7 @@ function elementPrototypeScrollFallback (this: AdjustableElement, x: number, y: 
  * @param {number} x
  * @param {number} y
  */
-function elementPrototypeScrollToFallback (this: AdjustableElement, x: number, y: number): void {
+function elementPrototypeScrollToFallback (this: IAdjustableElement, x: number, y: number): void {
 	return elementPrototypeScrollFallback.call(this, x, y);
 }
 
@@ -33,7 +33,7 @@ function elementPrototypeScrollToFallback (this: AdjustableElement, x: number, y
  * @param {number} x
  * @param {number} y
  */
-function elementPrototypeScrollByFallback (this: AdjustableElement, x: number, y: number): void {
+function elementPrototypeScrollByFallback (this: IAdjustableElement, x: number, y: number): void {
 	this.__adjustingScrollPosition = true;
 	this.scrollLeft += x;
 	this.scrollTop += y;

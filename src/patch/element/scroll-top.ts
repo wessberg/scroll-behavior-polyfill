@@ -4,7 +4,7 @@ import {ELEMENT_ORIGINAL_SCROLL_TOP_SET_DESCRIPTOR} from "../../original/element
 /**
  * Patches the 'scrollTop' property descriptor on the Element prototype
  */
-export function patchElementScrollTop(): void {
+export function patchElementScrollTop (): void {
 
 	Object.defineProperty(Element.prototype, "scrollTop", {
 		set (scrollTop: number) {
