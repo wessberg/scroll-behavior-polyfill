@@ -71,8 +71,8 @@ This means that either of the following approaches will work:
 <div scroll-behavior="smooth"></div>
 
 <script>
-	// Works jut fine when given as a style property
-	element.style.scrollBehavior = "smooth";
+  // Works jut fine when given as a style property
+  element.style.scrollBehavior = "smooth";
 </script>
 ```
 
@@ -104,10 +104,10 @@ myElement.scrollBy({
 
 You can also use the `scrollTop` and `scrollLeft` setters, both of which works with the polyfill too:
 
-````typescript
+```typescript
 element.scrollTop += 100;
 element.scrollLeft += 50;
-````
+```
 
 ## Dependencies & Browser support
 
