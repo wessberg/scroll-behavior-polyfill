@@ -1,6 +1,7 @@
 import {findNearestAncestorsWithScrollBehavior} from "../../util/find-nearest-ancestor-with-scroll-behavior";
 import {ELEMENT_ORIGINAL_SCROLL_INTO_VIEW} from "../../original/element/scroll-into-view";
 import {computeScrollIntoView} from "./compute-scroll-into-view";
+import {getOriginalScrollMethodForKind} from "../../scroll-method/get-original-scroll-method-for-kind";
 
 /**
  * Patches the 'scrollIntoView' method on the Element prototype
@@ -21,20 +22,24 @@ export function patchElementScrollIntoView (): void {
 				: arg;
 
 		// Find the nearest ancestor that can be scrolled
-		const ancestorWithScrollBehaviorResult = findNearestAncestorsWithScrollBehavior(this);
+		const [ancestorWithScroll, ancestorWithScrollBehavior] = findNearestAncestorsWithScrollBehavior(this);
 
-		// If there is none, opt-out by calling the original implementation
-		if (ancestorWithScrollBehaviorResult == null) {
-			ELEMENT_ORIGINAL_SCROLL_INTO_VIEW.call(this, normalizedOptions);
-			return;
-		}
-
-		const [ancestorWithScroll, ancestorWithScrollBehavior] = ancestorWithScrollBehaviorResult;
-		const behavior = normalizedOptions.behavior != null ? normalizedOptions.behavior : ancestorWithScrollBehavior;
+		const behavior = normalizedOptions.behavior != null
+			? normalizedOptions.behavior
+			: ancestorWithScrollBehavior;
 
 		// If the behavior isn't smooth, simply invoke the original implementation and do no more
 		if (behavior !== "smooth") {
-			ELEMENT_ORIGINAL_SCROLL_INTO_VIEW.call(this, normalizedOptions);
+			// Assert that 'scrollIntoView' is actually defined
+			if (ELEMENT_ORIGINAL_SCROLL_INTO_VIEW != null) {
+				ELEMENT_ORIGINAL_SCROLL_INTO_VIEW.call(this, normalizedOptions);
+			}
+
+			// Otherwise, invoke 'scrollTo' instead and provide the scroll coordinates
+			else {
+				const {top, left} = computeScrollIntoView(this, ancestorWithScroll, normalizedOptions);
+				getOriginalScrollMethodForKind("scrollTo", this).call(this, left, top);
+			}
 			return;
 		}
 

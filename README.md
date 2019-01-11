@@ -7,7 +7,7 @@
 
 # `scroll-behavior-polyfill`
 
-> A polyfill for the [`scroll-behavior`](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior) CSS-property
+> A polyfill for the [`scroll-behavior`](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior) CSS-property as well as the extensions to the Element interface in the [CSSOM View Module](https://drafts.csswg.org/cssom-view/#dom-element-scrollto-options-options)
 
 ## Description
 
@@ -15,6 +15,8 @@ The `scroll-behavior` CSS property sets the behavior for a scrolling box when sc
 This polyfill brings this new feature to all browsers.
 
 It is very efficient, tiny, and works with the latest browser technologies such as Shadow DOM.
+
+This polyfill also implements the extensions to the Element interface in the [CSSOM View Module](https://drafts.csswg.org/cssom-view/#dom-element-scrollto-options-options) such as `Element.prototype.scroll`, `Element.prototype.scrollTo`, `Element.protype.scrollBy`, and `Element.prototype.scrollIntoView`.
 
 ## Install
 
@@ -67,11 +69,11 @@ This means that either of the following approaches will work:
 <div style="scroll-behavior: smooth"></div>
 <!-- Works just fine when given as an attribute of the name 'scroll-behavior' -->
 <div scroll-behavior="smooth"></div>
-```
 
-```typescript
-// Works jut fine when given as a style property
-element.style.scrollBehavior = "smooth";
+<script>
+	// Works jut fine when given as a style property
+	element.style.scrollBehavior = "smooth";
+</script>
 ```
 
 See [this section](#are-there-any-known-quirks) for information about why `scroll-behavior` values provided in stylesheets won't be discovered by the polyfill.
@@ -100,12 +102,18 @@ myElement.scrollBy({
 });
 ```
 
+You can also use the `scrollTop` and `scrollLeft` setters, both of which works with the polyfill too:
+
+````typescript
+element.scrollTop += 100;
+element.scrollLeft += 50;
+````
+
 ## Dependencies & Browser support
 
 This polyfill is distributed in ES3-compatible syntax, but is using some modern APIs and language features which must be available:
 
 - `requestAnimationFrame`
-- `Element.prototype.scrollIntoView`
 
 For by far the most browsers, these features will already be natively available.
 Generally, I would highly recommend using something like [Polyfill.app](https://github.com/wessberg/Polyfiller) which takes care of this stuff automatically.
@@ -122,7 +130,6 @@ Do you want to contribute? Awesome! Please follow [these recommendations](./CONT
 
 ### Are there any known quirks?
 
-- You cannot set `scrollLeft` or `scrollTop`. There is no way to overwrite the property descriptors for those operations. Instead, use `scroll()`, `scrollTo` or `scrollBy` which does the exact same thing.
 - `scroll-behavior` properties declared only in stylesheets won't be discovered. This is because [polyfilling CSS is hard and really bad for performance](https://philipwalton.com/articles/the-dark-side-of-polyfilling-css/).
 
 ## Backers 🏅

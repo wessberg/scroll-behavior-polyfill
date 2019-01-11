@@ -1,9 +1,7 @@
 import {ISmoothScrollOptions} from "../smooth-scroll-options/i-smooth-scroll-options";
 import {now} from "../../util/now";
-import {WINDOW_ORIGINAL_SCROLL_TO} from "../../original/window/scroll-to";
-import {ELEMENT_ORIGINAL_SCROLL_TO} from "../../original/element/scroll-to";
-
-export type ScrollMethodName = "scroll"|"scrollBy"|"scrollTo";
+import {ScrollMethodName} from "../../scroll-method/scroll-method-name";
+import {getOriginalScrollMethodForKind} from "../../scroll-method/get-original-scroll-method-for-kind";
 
 /**
  * Gets the Smooth Scroll Options to use for the step function
@@ -25,13 +23,17 @@ export function getSmoothScrollOptions (element: Element|Window, x: number, y: n
 			startTime,
 			startX,
 			startY,
-			endX: Math.floor(kind === "scrollBy"
-				? startX + x
-				: x),
-			endY: Math.floor(kind === "scrollBy"
-				? startY + y
-				: y),
-			method: WINDOW_ORIGINAL_SCROLL_TO.bind(window)
+			endX: Math.floor(
+				kind === "scrollBy"
+					? startX + x
+					: x
+			),
+			endY: Math.floor(
+				kind === "scrollBy"
+					? startY + y
+					: y
+			),
+			method: getOriginalScrollMethodForKind("scrollTo", window).bind(window)
 		};
 	}
 
@@ -43,13 +45,17 @@ export function getSmoothScrollOptions (element: Element|Window, x: number, y: n
 			startTime,
 			startX,
 			startY,
-			endX: kind === "scrollBy"
-				? startX + x
-				: x,
-			endY: kind === "scrollBy"
-				? startY + y
-				: y,
-			method: ELEMENT_ORIGINAL_SCROLL_TO.bind(element)
+			endX: Math.floor(
+				kind === "scrollBy"
+					? startX + x
+					: x
+			),
+			endY: Math.floor(
+				kind === "scrollBy"
+					? startY + y
+					: y
+			),
+			method: getOriginalScrollMethodForKind("scrollTo", element).bind(element)
 		};
 	}
 }

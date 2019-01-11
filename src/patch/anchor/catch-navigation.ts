@@ -21,17 +21,6 @@ export function catchNavigation (): void {
 		// Only work with HTMLAnchorElements that navigates to a specific ID
 		if (hrefAttributeValue == null || !hrefAttributeValue.startsWith("#")) return;
 
-		// Find the nearest ancestor that can be scrolled
-		const ancestorWithScrollBehaviorResult = findNearestAncestorsWithScrollBehavior(e.target);
-		// If there is none, don't proceed
-		if (ancestorWithScrollBehaviorResult == null) return;
-
-		// Take the scroll behavior for that ancestor
-		const [ancestorWithScrollBehavior, behavior] = ancestorWithScrollBehaviorResult;
-
-		// If the behavior isn't smooth, don't proceed
-		if (behavior !== "smooth") return;
-
 		// Find the nearest root, whether it be a ShadowRoot or the document itself
 		const root = findNearestRoot(e.target);
 
@@ -42,6 +31,12 @@ export function catchNavigation (): void {
 
 		// If no selector could be found, don't proceed
 		if (elementMatch == null) return;
+
+		// Find the nearest ancestor that can be scrolled
+		const [ancestorWithScrollBehavior, behavior] = findNearestAncestorsWithScrollBehavior(elementMatch);
+
+		// If the behavior isn't smooth, don't proceed
+		if (behavior !== "smooth") return;
 
 		// Otherwise, first prevent the default action.
 		e.preventDefault();
