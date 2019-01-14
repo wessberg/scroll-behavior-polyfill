@@ -45,7 +45,7 @@ However, it is strongly suggested that you only include the polyfill for browser
 One way to do so is with an async import:
 
 ```typescript
-if (!"scrollBehavior" in document.documentElement.style) {
+if (!("scrollBehavior" in document.documentElement.style)) {
   await import("scroll-behavior-polyfill");
 }
 ```

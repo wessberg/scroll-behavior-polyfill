@@ -32,6 +32,7 @@
   ],
   "keywords": [
     "scroll-behavior",
+    "smooth-scrolling",
     "polyfill",
     "css",
     "smooth",
