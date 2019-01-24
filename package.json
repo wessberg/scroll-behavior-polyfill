@@ -64,7 +64,7 @@
   "typings": "./dist/index.d.ts",
   "es2015": "./dist/index.js",
   "engines": {
-    "node": ">=9.0.0"
+    "node": ">=4.0.0"
   },
   "scaffold": {
     "patreonUserId": "11315442",
