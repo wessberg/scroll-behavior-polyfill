@@ -114,6 +114,8 @@ element.scrollLeft += 50;
 This polyfill is distributed in ES3-compatible syntax, but is using some modern APIs and language features which must be available:
 
 - `requestAnimationFrame`
+- `Object.getOwnPropertyDescriptor`
+- `Object.defineProperty`
 
 For by far the most browsers, these features will already be natively available.
 Generally, I would highly recommend using something like [Polyfill.app](https://github.com/wessberg/Polyfiller) which takes care of this stuff automatically.
