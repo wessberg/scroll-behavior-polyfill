@@ -1,22 +1,81 @@
-<a href="https://npmcharts.com/compare/scroll-behavior-polyfill?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/scroll-behavior-polyfill.svg" height="20"></img></a>
-<a href="https://david-dm.org/scroll-behavior-polyfill"><img alt="Dependencies" src="https://img.shields.io/david/scroll-behavior-polyfill.svg" height="20"></img></a>
-<a href="https://www.npmjs.com/package/scroll-behavior-polyfill"><img alt="NPM Version" src="https://badge.fury.io/js/scroll-behavior-polyfill.svg" height="20"></img></a>
-<a href="https://github.com/wessberg/scroll-behavior-polyfill/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/wessberg%2Fscroll-behavior-polyfill.svg" height="20"></img></a>
-<a href="https://opensource.org/licenses/MIT"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-yellow.svg" height="20"></img></a>
-<a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Support on Patreon" src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" height="20"></img></a>
+<!-- SHADOW_SECTION_LOGO_START -->
 
-# `scroll-behavior-polyfill`
+<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/scroll-behavior-polyfill/master/documentation/asset/logo.png" height="80"   /></div>
 
-> A polyfill for the [`scroll-behavior`](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior) CSS-property as well as the extensions to the Element interface in the [CSSOM View Module](https://drafts.csswg.org/cssom-view/#dom-element-scrollto-options-options)
+<!-- SHADOW_SECTION_LOGO_END -->
+
+<!-- SHADOW_SECTION_DESCRIPTION_SHORT_START -->
+
+> A polyfill for the 'scroll-behavior' CSS-property
+
+<!-- SHADOW_SECTION_DESCRIPTION_SHORT_END -->
+
+<!-- SHADOW_SECTION_BADGES_START -->
+
+<a href="https://npmcharts.com/compare/scroll-behavior-polyfill?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/scroll-behavior-polyfill.svg"    /></a>
+<a href="https://david-dm.org/wessberg/scroll-behavior-polyfill"><img alt="Dependencies" src="https://img.shields.io/david/wessberg%2Fscroll-behavior-polyfill.svg"    /></a>
+<a href="https://github.com/wessberg/scroll-behavior-polyfill/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/wessberg%2Fscroll-behavior-polyfill.svg"    /></a>
+<a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"    /></a>
+<a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"    /></a>
+<a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Support on Patreon" src="https://img.shields.io/badge/patreon-donate-green.svg"    /></a>
+
+<!-- SHADOW_SECTION_BADGES_END -->
+
+<!-- SHADOW_SECTION_DESCRIPTION_LONG_START -->
 
 ## Description
 
-The `scroll-behavior` CSS property sets the behavior for a scrolling box when scrolling is triggered by the navigation or CSSOM scrolling APIs.
+<!-- SHADOW_SECTION_DESCRIPTION_LONG_END -->
+
+The [`scroll-behavior`](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior) CSS-property as well as the extensions to the Element interface in the [CSSOM View Module](https://drafts.csswg.org/cssom-view/#dom-element-scrollto-options-options) CSS property sets the behavior for a scrolling box when scrolling is triggered by the navigation or CSSOM scrolling APIs.
 This polyfill brings this new feature to all browsers.
 
 It is very efficient, tiny, and works with the latest browser technologies such as Shadow DOM.
 
 This polyfill also implements the extensions to the Element interface in the [CSSOM View Module](https://drafts.csswg.org/cssom-view/#dom-element-scrollto-options-options) such as `Element.prototype.scroll`, `Element.prototype.scrollTo`, `Element.protype.scrollBy`, and `Element.prototype.scrollIntoView`.
+
+<!-- SHADOW_SECTION_FEATURES_START -->
+
+### Features
+
+<!-- SHADOW_SECTION_FEATURES_END -->
+
+- Spec-compliant
+- Tiny
+- Efficient
+- Works with the latest browser technologies, including Shadow DOM
+- Seamless
+
+<!-- SHADOW_SECTION_FEATURE_IMAGE_START -->
+
+<!-- SHADOW_SECTION_FEATURE_IMAGE_END -->
+
+<!-- SHADOW_SECTION_TOC_START -->
+
+## Table of Contents
+
+- [Description](#description)
+  - [Features](#features)
+- [Table of Contents](#table-of-contents)
+- [Install](#install)
+  - [NPM](#npm)
+  - [Yarn](#yarn)
+- [Applying the polyfill](#applying-the-polyfill)
+- [Usage](#usage)
+  - [Declarative API](#declarative-api)
+  - [Imperative API](#imperative-api)
+- [Dependencies & Browser support](#dependencies--browser-support)
+- [Contributing](#contributing)
+- [Maintainers](#maintainers)
+- [Backers](#backers)
+  - [Patreon](#patreon)
+  - [FAQ](#faq)
+  - [Are there any known quirks?](#are-there-any-known-quirks)
+- [License](#license)
+
+<!-- SHADOW_SECTION_TOC_END -->
+
+<!-- SHADOW_SECTION_INSTALL_START -->
 
 ## Install
 
@@ -31,6 +90,8 @@ $ npm install scroll-behavior-polyfill
 ```
 $ yarn add scroll-behavior-polyfill
 ```
+
+<!-- SHADOW_SECTION_INSTALL_END -->
 
 ## Applying the polyfill
 
@@ -52,7 +113,11 @@ if (!("scrollBehavior" in document.documentElement.style)) {
 
 Alternatively, you can use [Polyfill.app](https://github.com/wessberg/Polyfiller) which uses this polyfill and takes care of only loading the polyfill if needed as well as adding the language features that the polyfill depends on (See [dependencies](#dependencies--browser-support)).
 
+<!-- SHADOW_SECTION_USAGE_START -->
+
 ## Usage
+
+<!-- SHADOW_SECTION_USAGE_END -->
 
 ### Declarative API
 
@@ -120,24 +185,50 @@ This polyfill is distributed in ES3-compatible syntax, but is using some modern 
 For by far the most browsers, these features will already be natively available.
 Generally, I would highly recommend using something like [Polyfill.app](https://github.com/wessberg/Polyfiller) which takes care of this stuff automatically.
 
+<!-- SHADOW_SECTION_CONTRIBUTING_START -->
+
 ## Contributing
 
 Do you want to contribute? Awesome! Please follow [these recommendations](./CONTRIBUTING.md).
 
+<!-- SHADOW_SECTION_CONTRIBUTING_END -->
+
+<!-- SHADOW_SECTION_MAINTAINERS_START -->
+
 ## Maintainers
 
-- <a href="https://github.com/wessberg"><img alt="Frederik Wessberg" src="https://avatars2.githubusercontent.com/u/20454213?s=460&v=4" height="11"></img></a> [Frederik Wessberg](https://github.com/wessberg): _Maintainer_
+| <img alt="Frederik Wessberg" src="https://avatars2.githubusercontent.com/u/20454213?s=460&v=4" height="70"   />                   |
+| --------------------------------------------------------------------------------------------------------------------------------- |
+| [Frederik Wessberg](mailto:frederikwessberg@hotmail.com)<br>[@FredWessberg](https://twitter.com/FredWessberg)<br>_Lead Developer_ |
 
-## FAQ
+<!-- SHADOW_SECTION_MAINTAINERS_END -->
+
+<!-- SHADOW_SECTION_BACKERS_START -->
+
+## Backers
+
+### Patreon
+
+[Become a backer](https://www.patreon.com/bePatron?u=11315442) and get your name, avatar, and Twitter handle listed here.
+
+<a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Backers on Patreon" src="https://patreon-badge.herokuapp.com/11315442.png"  width="500"  /></a>
+
+<!-- SHADOW_SECTION_BACKERS_END -->
+
+<!-- SHADOW_SECTION_FAQ_START -->
+
+### FAQ
+
+<!-- SHADOW_SECTION_FAQ_END -->
 
 ### Are there any known quirks?
 
 - `scroll-behavior` properties declared only in stylesheets won't be discovered. This is because [polyfilling CSS is hard and really bad for performance](https://philipwalton.com/articles/the-dark-side-of-polyfilling-css/).
 
-## Backers 🏅
+<!-- SHADOW_SECTION_LICENSE_START -->
 
-[Become a backer](https://www.patreon.com/bePatron?u=11315442) and get your name, logo, and link to your site listed here.
+## License
 
-## License 📄
+MIT © [Frederik Wessberg](mailto:frederikwessberg@hotmail.com) ([@FredWessberg](https://twitter.com/FredWessberg)) ([Website](https://github.com/wessberg))
 
-MIT © [Frederik Wessberg](https://github.com/wessberg)
+<!-- SHADOW_SECTION_LICENSE_END -->

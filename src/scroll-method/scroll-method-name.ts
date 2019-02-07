@@ -1,1 +1,1 @@
-export type ScrollMethodName = "scroll"|"scrollBy"|"scrollTo";
+export type ScrollMethodName = "scroll" | "scrollBy" | "scrollTo";

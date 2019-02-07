@@ -1,3 +1,3 @@
 export interface IAdjustableElement extends Element {
-	__adjustingScrollPosition?: boolean;
+  __adjustingScrollPosition?: boolean;
 }

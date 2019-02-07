@@ -5,6 +5,6 @@ const HALF = 0.5;
  * @param {number} k
  * @returns {number}
  */
-export function ease (k: number) {
-	return HALF * (1 - Math.cos(Math.PI * k));
+export function ease(k: number) {
+  return HALF * (1 - Math.cos(Math.PI * k));
 }

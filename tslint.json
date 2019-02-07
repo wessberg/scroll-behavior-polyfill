@@ -1,7 +1,6 @@
 {
-	"extends": "./node_modules/@wessberg/ts-config/tslint/tslint.json",
-	"rules": {
-		"completed-docs": false,
-		"no-gratuitous-expressions": false
-	}
+  "extends": "./node_modules/@wessberg/ts-config/tslint.json",
+  "rules": {
+    "no-gratuitous-expressions": false
+  }
 }

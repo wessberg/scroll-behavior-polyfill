@@ -10,22 +10,23 @@
     "url": "https://github.com/wessberg/scroll-behavior-polyfill/issues"
   },
   "scripts": {
-    "generate:readme": "scaffold readme",
-    "generate:license": "scaffold license",
-    "generate:contributing": "scaffold contributing",
-    "generate:coc": "scaffold coc",
+    "generate:readme": "scaffold readme --yes",
+    "generate:license": "scaffold license --yes",
+    "generate:contributing": "scaffold contributing --yes",
+    "generate:coc": "scaffold coc --yes",
     "generate:changelog": "standard-changelog --first-release",
-    "generate:all": "npm run generate:license & npm run generate:contributing & npm run generate:coc & npm run generate:readme  & npm run generate:changelog",
-    "update": "ncu -ua && npm update && npm install",
+    "generate:all": "npm run generate:license & npm run generate:contributing & npm run generate:coc & npm run generate:readme && npm run generate:changelog",
+    "clean:dist": "rm -rf dist",
+    "clean:compiled": "rm -rf compiled",
+    "clean": "npm run clean:dist && npm run clean:compiled",
     "lint": "tsc --noEmit && tslint -c tslint.json --project tsconfig.json",
-    "prerollup": "rm -r -f dist",
+    "prettier": "prettier --write '{src,documentation}/**/*.{js,ts,json,html,xml,css,md}'",
+    "prebuild": "npm run clean:dist",
+    "build": "npm run rollup",
     "rollup": "rollup -c rollup.config.js",
-    "prepare": "npm run rollup",
-    "publish:before": "NODE_ENV=production npm run lint && NODE_ENV=production npm run prepare && npm run generate:all && git add . && (git commit -am \"Bumped version\" && git push) || true",
-    "publish:after": "git push && npm publish",
-    "publish:patch": "npm run publish:before && npm version patch && npm run publish:after",
-    "publish:minor": "npm run publish:before && npm version minor && npm run publish:after",
-    "publish:major": "npm run publish:before && npm version major && npm run publish:after"
+    "preversion": "npm run lint && NODE_ENV=production npm run build",
+    "version": "npm run generate:all && git add .",
+    "release": "np --no-cleanup --no-yarn"
   },
   "files": [
     "dist/**/*.*"
@@ -38,23 +39,31 @@
     "smooth",
     "scroll behavior"
   ],
-  "author": {
-    "name": "Frederik Wessberg",
-    "email": "frederikwessberg@hotmail.com",
-    "url": "https://github.com/wessberg"
-  },
+  "contributors": [
+    {
+      "name": "Frederik Wessberg",
+      "email": "frederikwessberg@hotmail.com",
+      "url": "https://github.com/wessberg",
+      "imageUrl": "https://avatars2.githubusercontent.com/u/20454213?s=460&v=4",
+      "role": "Lead Developer",
+      "twitter": "FredWessberg"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
-    "@wessberg/rollup-plugin-ts": "1.1.17",
-    "@wessberg/scaffold": "1.0.5",
-    "@wessberg/ts-config": "^0.0.34",
-    "npm-check-updates": "^2.15.0",
-    "rollup": "^1.0.2",
+    "@wessberg/rollup-plugin-ts": "1.1.28",
+    "@wessberg/scaffold": "1.0.15",
+    "@wessberg/ts-config": "^0.0.39",
+    "rollup": "^1.1.2",
     "rollup-plugin-node-resolve": "^4.0.0",
     "tslib": "^1.9.3",
-    "tslint": "^5.12.0",
-    "typescript": "^3.2.2",
-    "standard-changelog": "^2.0.6"
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3",
+    "standard-changelog": "^2.0.6",
+    "prettier": "^1.16.4",
+    "pretty-quick": "^1.10.0",
+    "husky": "^1.3.1",
+    "np": "^4.0.2"
   },
   "dependencies": {},
   "main": "./dist/index.js",
@@ -66,16 +75,9 @@
   "engines": {
     "node": ">=4.0.0"
   },
-  "scaffold": {
-    "patreonUserId": "11315442",
-    "contributorMeta": {
-      "Frederik Wessberg": {
-        "imageUrl": "https://avatars2.githubusercontent.com/u/20454213?s=460&v=4",
-        "role": "Maintainer",
-        "twitterHandle": "FredWessberg",
-        "isCocEnforcer": true
-      }
-    },
-    "backers": []
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
