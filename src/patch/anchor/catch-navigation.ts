@@ -19,8 +19,9 @@ export function catchNavigation(): void {
     const hrefAttributeValue = e.target.getAttribute("href");
 
     // Only work with HTMLAnchorElements that navigates to a specific ID
-    if (hrefAttributeValue == null || !hrefAttributeValue.startsWith("#"))
+    if (hrefAttributeValue == null || !hrefAttributeValue.startsWith("#")) {
       return;
+    }
 
     // Find the nearest root, whether it be a ShadowRoot or the document itself
     const root = findNearestRoot(e.target);
