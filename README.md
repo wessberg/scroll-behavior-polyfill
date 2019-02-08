@@ -1,6 +1,6 @@
 <!-- SHADOW_SECTION_LOGO_START -->
 
-<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/scroll-behavior-polyfill/master/documentation/asset/logo.png" height="70"   /></div>
+<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/scroll-behavior-polyfill/master/documentation/asset/logo.png" height="60"   /></div>
 
 <!-- SHADOW_SECTION_LOGO_END -->
 
