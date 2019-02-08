@@ -1,6 +1,6 @@
 <!-- SHADOW_SECTION_LOGO_START -->
 
-<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/scroll-behavior-polyfill/master/documentation/asset/logo.png" height="80"   /></div>
+<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/scroll-behavior-polyfill/master/documentation/asset/logo.png" height="70"   /></div>
 
 <!-- SHADOW_SECTION_LOGO_END -->
 
@@ -13,6 +13,7 @@
 <!-- SHADOW_SECTION_BADGES_START -->
 
 <a href="https://npmcharts.com/compare/scroll-behavior-polyfill?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/scroll-behavior-polyfill.svg"    /></a>
+<a href="https://www.npmjs.com/package/scroll-behavior-polyfill"><img alt="NPM version" src="https://badge.fury.io/js/scroll-behavior-polyfill.svg"    /></a>
 <a href="https://david-dm.org/wessberg/scroll-behavior-polyfill"><img alt="Dependencies" src="https://img.shields.io/david/wessberg%2Fscroll-behavior-polyfill.svg"    /></a>
 <a href="https://github.com/wessberg/scroll-behavior-polyfill/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/wessberg%2Fscroll-behavior-polyfill.svg"    /></a>
 <a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"    /></a>
