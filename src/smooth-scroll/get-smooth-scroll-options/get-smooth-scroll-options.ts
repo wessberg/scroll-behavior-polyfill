@@ -1,7 +1,7 @@
-import { ISmoothScrollOptions } from "../smooth-scroll-options/i-smooth-scroll-options";
-import { now } from "../../util/now";
-import { ScrollMethodName } from "../../scroll-method/scroll-method-name";
-import { getOriginalScrollMethodForKind } from "../../scroll-method/get-original-scroll-method-for-kind";
+import {ISmoothScrollOptions} from "../smooth-scroll-options/i-smooth-scroll-options";
+import {now} from "../../util/now";
+import {ScrollMethodName} from "../../scroll-method/scroll-method-name";
+import {getOriginalScrollMethodForKind} from "../../scroll-method/get-original-scroll-method-for-kind";
 
 /**
  * Gets the Smooth Scroll Options to use for the step function
@@ -11,38 +11,33 @@ import { getOriginalScrollMethodForKind } from "../../scroll-method/get-original
  * @param {ScrollMethodName} kind
  * @returns {ISmoothScrollOptions}
  */
-export function getSmoothScrollOptions(
-  element: Element | Window,
-  x: number,
-  y: number,
-  kind: ScrollMethodName
-): ISmoothScrollOptions {
-  const startTime = now();
+export function getSmoothScrollOptions(element: Element | Window, x: number, y: number, kind: ScrollMethodName): ISmoothScrollOptions {
+	const startTime = now();
 
-  if (!(element instanceof Element)) {
-    // Use window as the scroll container
-    const { scrollX, pageXOffset, scrollY, pageYOffset } = window;
-    const startX = scrollX == null || scrollX === 0 ? pageXOffset : scrollX;
-    const startY = scrollY == null || scrollY === 0 ? pageYOffset : scrollY;
-    return {
-      startTime,
-      startX,
-      startY,
-      endX: Math.floor(kind === "scrollBy" ? startX + x : x),
-      endY: Math.floor(kind === "scrollBy" ? startY + y : y),
-      method: getOriginalScrollMethodForKind("scrollTo", window).bind(window)
-    };
-  } else {
-    const { scrollLeft, scrollTop } = element;
-    const startX = scrollLeft;
-    const startY = scrollTop;
-    return {
-      startTime,
-      startX,
-      startY,
-      endX: Math.floor(kind === "scrollBy" ? startX + x : x),
-      endY: Math.floor(kind === "scrollBy" ? startY + y : y),
-      method: getOriginalScrollMethodForKind("scrollTo", element).bind(element)
-    };
-  }
+	if (!(element instanceof Element)) {
+		// Use window as the scroll container
+		const {scrollX, pageXOffset, scrollY, pageYOffset} = window;
+		const startX = scrollX == null || scrollX === 0 ? pageXOffset : scrollX;
+		const startY = scrollY == null || scrollY === 0 ? pageYOffset : scrollY;
+		return {
+			startTime,
+			startX,
+			startY,
+			endX: Math.floor(kind === "scrollBy" ? startX + x : x),
+			endY: Math.floor(kind === "scrollBy" ? startY + y : y),
+			method: getOriginalScrollMethodForKind("scrollTo", window).bind(window)
+		};
+	} else {
+		const {scrollLeft, scrollTop} = element;
+		const startX = scrollLeft;
+		const startY = scrollTop;
+		return {
+			startTime,
+			startX,
+			startY,
+			endX: Math.floor(kind === "scrollBy" ? startX + x : x),
+			endY: Math.floor(kind === "scrollBy" ? startY + y : y),
+			method: getOriginalScrollMethodForKind("scrollTo", element).bind(element)
+		};
+	}
 }

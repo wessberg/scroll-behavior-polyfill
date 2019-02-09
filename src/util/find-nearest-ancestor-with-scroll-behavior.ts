@@ -1,10 +1,7 @@
-import { getParent } from "./get-parent";
-import { getScrollBehavior } from "./get-scroll-behavior";
+import {getParent} from "./get-parent";
+import {getScrollBehavior} from "./get-scroll-behavior";
 
-const scrollingElement =
-  document.scrollingElement != null
-    ? document.scrollingElement
-    : document.documentElement;
+const scrollingElement = document.scrollingElement != null ? document.scrollingElement : document.documentElement;
 
 /**
  * Returns true if the given overflow property represents a scrollable overflow value
@@ -12,7 +9,7 @@ const scrollingElement =
  * @return {boolean}
  */
 function canOverflow(overflow: string | null): boolean {
-  return overflow !== "visible" && overflow !== "clip";
+	return overflow !== "visible" && overflow !== "clip";
 }
 
 /**
@@ -21,15 +18,12 @@ function canOverflow(overflow: string | null): boolean {
  * @return {boolean}
  */
 function isScrollable(element: Element) {
-  if (
-    element.clientHeight < element.scrollHeight ||
-    element.clientWidth < element.scrollWidth
-  ) {
-    const style = getComputedStyle(element, null);
-    return canOverflow(style.overflowY) || canOverflow(style.overflowX);
-  }
+	if (element.clientHeight < element.scrollHeight || element.clientWidth < element.scrollWidth) {
+		const style = getComputedStyle(element, null);
+		return canOverflow(style.overflowY) || canOverflow(style.overflowX);
+	}
 
-  return false;
+	return false;
 }
 
 /**
@@ -37,36 +31,31 @@ function isScrollable(element: Element) {
  * @param {Element} target
  * @returns {Element|Window?}
  */
-export function findNearestAncestorsWithScrollBehavior(
-  target: Element | HTMLElement
-): [Element | HTMLElement, ScrollBehavior] {
-  let currentElement: Element | HTMLElement = target;
+export function findNearestAncestorsWithScrollBehavior(target: Element | HTMLElement): [Element | HTMLElement, ScrollBehavior] {
+	let currentElement: Element | HTMLElement = target;
 
-  while (currentElement != null) {
-    const behavior = getScrollBehavior(currentElement);
-    if (
-      behavior != null &&
-      (currentElement === scrollingElement || isScrollable(currentElement))
-    ) {
-      return [currentElement, behavior];
-    }
+	while (currentElement != null) {
+		const behavior = getScrollBehavior(currentElement);
+		if (behavior != null && (currentElement === scrollingElement || isScrollable(currentElement))) {
+			return [currentElement, behavior];
+		}
 
-    const parent = getParent(currentElement);
-    currentElement = parent as Element;
-  }
+		const parent = getParent(currentElement);
+		currentElement = parent as Element;
+	}
 
-  // No such element could be found. Start over, but this time find the nearest ancestor that can simply scroll
-  currentElement = target;
+	// No such element could be found. Start over, but this time find the nearest ancestor that can simply scroll
+	currentElement = target;
 
-  while (currentElement != null) {
-    if (currentElement === scrollingElement || isScrollable(currentElement)) {
-      return [currentElement, "auto"];
-    }
+	while (currentElement != null) {
+		if (currentElement === scrollingElement || isScrollable(currentElement)) {
+			return [currentElement, "auto"];
+		}
 
-    const parent = getParent(currentElement);
-    currentElement = parent as Element;
-  }
+		const parent = getParent(currentElement);
+		currentElement = parent as Element;
+	}
 
-  // Default to the scrolling element
-  return [scrollingElement, "auto"];
+	// Default to the scrolling element
+	return [scrollingElement, "auto"];
 }
