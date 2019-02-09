@@ -1,3 +1,5 @@
+## [2.0.6](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.5...v2.0.6) (2019-02-09)
+
 ## [2.0.5](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.4...v2.0.5) (2019-02-07)
 
 ## [2.0.4](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.3...v2.0.4) (2019-01-24)

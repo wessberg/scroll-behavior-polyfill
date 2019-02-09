@@ -70,7 +70,7 @@ This polyfill also implements the extensions to the Element interface in the [CS
 - [Maintainers](#maintainers)
 - [Backers](#backers)
   - [Patreon](#patreon)
-  - [FAQ](#faq)
+- [FAQ](#faq)
   - [Are there any known quirks?](#are-there-any-known-quirks)
 - [License](#license)
 
@@ -108,7 +108,7 @@ One way to do so is with an async import:
 
 ```typescript
 if (!("scrollBehavior" in document.documentElement.style)) {
-  await import("scroll-behavior-polyfill");
+	await import("scroll-behavior-polyfill");
 }
 ```
 
@@ -137,8 +137,8 @@ This means that either of the following approaches will work:
 <div scroll-behavior="smooth"></div>
 
 <script>
-  // Works jut fine when given as a style property
-  element.style.scrollBehavior = "smooth";
+	// Works jut fine when given as a style property
+	element.style.scrollBehavior = "smooth";
 </script>
 ```
 
@@ -153,18 +153,18 @@ For example:
 ```typescript
 // Works for the window object
 window.scroll({
-  behavior: "smooth",
-  top: 100,
-  left: 0
+	behavior: "smooth",
+	top: 100,
+	left: 0
 });
 
 // Works for any element (and supports all options)
 myElement.scrollIntoView();
 
 myElement.scrollBy({
-  behavior: "smooth",
-  top: 50,
-  left: 0
+	behavior: "smooth",
+	top: 50,
+	left: 0
 });
 ```
 
@@ -218,7 +218,7 @@ Do you want to contribute? Awesome! Please follow [these recommendations](./CONT
 
 <!-- SHADOW_SECTION_FAQ_START -->
 
-### FAQ
+## FAQ
 
 <!-- SHADOW_SECTION_FAQ_END -->
 
