@@ -1,3 +1,9 @@
+## [2.0.7](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.6...v2.0.7) (2019-02-23)
+
+### Bug Fixes
+
+- **bug:** fixes an issue where anchor scrolling could lead to the wrong coordinates under some circumstances ([2f399f4](https://github.com/wessberg/scroll-behavior-polyfill/commit/2f399f4))
+
 ## [2.0.6](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.5...v2.0.6) (2019-02-09)
 
 ## [2.0.5](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.4...v2.0.5) (2019-02-07)
