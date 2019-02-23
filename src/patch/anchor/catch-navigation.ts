@@ -33,7 +33,7 @@ export function catchNavigation(): void {
 		if (elementMatch == null) return;
 
 		// Find the nearest ancestor that can be scrolled
-		const [ancestorWithScrollBehavior, behavior] = findNearestAncestorsWithScrollBehavior(elementMatch);
+		const [, behavior] = findNearestAncestorsWithScrollBehavior(elementMatch);
 
 		// If the behavior isn't smooth, don't proceed
 		if (behavior !== "smooth") return;
@@ -42,10 +42,8 @@ export function catchNavigation(): void {
 		e.preventDefault();
 
 		// Now, scroll to the element with that ID
-		ancestorWithScrollBehavior.scrollTo({
-			behavior,
-			top: (elementMatch as HTMLElement).offsetTop,
-			left: (elementMatch as HTMLElement).offsetLeft
+		elementMatch.scrollIntoView({
+			behavior
 		});
 	});
 }
