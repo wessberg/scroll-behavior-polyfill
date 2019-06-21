@@ -2,9 +2,6 @@ import ts from "@wessberg/rollup-plugin-ts";
 import resolve from "rollup-plugin-node-resolve";
 import packageJson from "./package.json";
 
-// noinspection NpmUsedModulesInstalled
-import {builtinModules} from "module";
-
 export default {
 	input: "src/index.ts",
 	output: [

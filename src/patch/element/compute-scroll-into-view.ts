@@ -12,13 +12,11 @@ interface IVisualViewport {
 
 declare var visualViewport: IVisualViewport;
 
-declare global {
-	interface Window {
-		visualViewport?: {
-			height: number;
-			width: number;
-		};
-	}
+interface VisualViewportable {
+	visualViewport?: {
+		height: number;
+		width: number;
+	};
 }
 
 /**
@@ -59,7 +57,10 @@ function alignNearest(
 	 *   └───────────┘
 	 *    ┗ ━ ━ ━ ━ ┛
 	 */
-	if ((elementEdgeStart < scrollingEdgeStart && elementEdgeEnd > scrollingEdgeEnd) || (elementEdgeStart > scrollingEdgeStart && elementEdgeEnd < scrollingEdgeEnd)) {
+	if (
+		(elementEdgeStart < scrollingEdgeStart && elementEdgeEnd > scrollingEdgeEnd) ||
+		(elementEdgeStart > scrollingEdgeStart && elementEdgeEnd < scrollingEdgeEnd)
+	) {
 		return 0;
 	}
 
@@ -102,7 +103,10 @@ function alignNearest(
 	 *        └───────────┘   └───────────┘
 	 *    ┗ ━ ━ ━ ━ ┛         ┗ ━ ━ ━ ━ ┛
 	 */
-	if ((elementEdgeStart <= scrollingEdgeStart && elementSize <= scrollingSize) || (elementEdgeEnd >= scrollingEdgeEnd && elementSize >= scrollingSize)) {
+	if (
+		(elementEdgeStart <= scrollingEdgeStart && elementSize <= scrollingSize) ||
+		(elementEdgeEnd >= scrollingEdgeEnd && elementSize >= scrollingSize)
+	) {
 		return elementEdgeStart - scrollingEdgeStart - scrollingBorderStart;
 	}
 
@@ -164,13 +168,20 @@ export function computeScrollIntoView(target: Element, scroller: Element, option
 	// and viewport dimensions on window.innerWidth/Height
 	// https://www.quirksmode.org/mobile/viewports2.html
 	// https://bokand.github.io/viewport/index.html
-	const viewportWidth = window.visualViewport != null ? visualViewport.width : innerWidth;
-	const viewportHeight = window.visualViewport != null ? visualViewport.height : innerHeight;
+	const viewportWidth = (window as VisualViewportable).visualViewport != null ? visualViewport.width : innerWidth;
+	const viewportHeight = (window as VisualViewportable).visualViewport != null ? visualViewport.height : innerHeight;
 
 	const viewportX = window.scrollX != null ? window.scrollX : window.pageXOffset;
 	const viewportY = window.scrollY != null ? window.scrollY : window.pageYOffset;
 
-	const {height: targetHeight, width: targetWidth, top: targetTop, right: targetRight, bottom: targetBottom, left: targetLeft} = target.getBoundingClientRect();
+	const {
+		height: targetHeight,
+		width: targetWidth,
+		top: targetTop,
+		right: targetRight,
+		bottom: targetBottom,
+		left: targetLeft
+	} = target.getBoundingClientRect();
 
 	// These values mutate as we loop through and generate scroll coordinates
 	const targetBlock: number = block === "start" || block === "nearest" ? targetTop : block === "end" ? targetBottom : targetTop + targetHeight / 2; // block === 'center
@@ -189,8 +200,10 @@ export function computeScrollIntoView(target: Element, scroller: Element, option
 
 	// The property existance checks for offset[Width|Height] is because only HTMLElement objects have them, but any Element might pass by here
 	// @TODO find out if the "as HTMLElement" overrides can be dropped
-	const scrollbarWidth = "offsetWidth" in scroller ? (scroller as HTMLElement).offsetWidth - (scroller as HTMLElement).clientWidth - borderLeft - borderRight : 0;
-	const scrollbarHeight = "offsetHeight" in scroller ? (scroller as HTMLElement).offsetHeight - (scroller as HTMLElement).clientHeight - borderTop - borderBottom : 0;
+	const scrollbarWidth =
+		"offsetWidth" in scroller ? (scroller as HTMLElement).offsetWidth - (scroller as HTMLElement).clientWidth - borderLeft - borderRight : 0;
+	const scrollbarHeight =
+		"offsetHeight" in scroller ? (scroller as HTMLElement).offsetHeight - (scroller as HTMLElement).clientHeight - borderTop - borderBottom : 0;
 
 	if (scrollingElement === scroller) {
 		// Handle viewport logic (document.documentElement or document.body)
@@ -200,7 +213,16 @@ export function computeScrollIntoView(target: Element, scroller: Element, option
 		} else if (block === "end") {
 			blockScroll = targetBlock - viewportHeight;
 		} else if (block === "nearest") {
-			blockScroll = alignNearest(viewportY, viewportY + viewportHeight, viewportHeight, borderTop, borderBottom, viewportY + targetBlock, viewportY + targetBlock + targetHeight, targetHeight);
+			blockScroll = alignNearest(
+				viewportY,
+				viewportY + viewportHeight,
+				viewportHeight,
+				borderTop,
+				borderBottom,
+				viewportY + targetBlock,
+				viewportY + targetBlock + targetHeight,
+				targetHeight
+			);
 		} else {
 			// block === 'center' is the default
 			blockScroll = targetBlock - viewportHeight / 2;
@@ -214,7 +236,16 @@ export function computeScrollIntoView(target: Element, scroller: Element, option
 			inlineScroll = targetInline - viewportWidth;
 		} else {
 			// inline === 'nearest' is the default
-			inlineScroll = alignNearest(viewportX, viewportX + viewportWidth, viewportWidth, borderLeft, borderRight, viewportX + targetInline, viewportX + targetInline + targetWidth, targetWidth);
+			inlineScroll = alignNearest(
+				viewportX,
+				viewportX + viewportWidth,
+				viewportWidth,
+				borderLeft,
+				borderRight,
+				viewportX + targetInline,
+				viewportX + targetInline + targetWidth,
+				targetWidth
+			);
 		}
 
 		// Apply scroll position offsets and ensure they are within bounds
@@ -229,7 +260,16 @@ export function computeScrollIntoView(target: Element, scroller: Element, option
 		} else if (block === "end") {
 			blockScroll = targetBlock - bottom + borderBottom + scrollbarHeight;
 		} else if (block === "nearest") {
-			blockScroll = alignNearest(top, bottom, height, borderTop, borderBottom + scrollbarHeight, targetBlock, targetBlock + targetHeight, targetHeight);
+			blockScroll = alignNearest(
+				top,
+				bottom,
+				height,
+				borderTop,
+				borderBottom + scrollbarHeight,
+				targetBlock,
+				targetBlock + targetHeight,
+				targetHeight
+			);
 		} else {
 			// block === 'center' is the default
 			blockScroll = targetBlock - (top + height / 2) + scrollbarHeight / 2;
@@ -243,7 +283,16 @@ export function computeScrollIntoView(target: Element, scroller: Element, option
 			inlineScroll = targetInline - right + borderRight + scrollbarWidth;
 		} else {
 			// inline === 'nearest' is the default
-			inlineScroll = alignNearest(left, right, width, borderLeft, borderRight + scrollbarWidth, targetInline, targetInline + targetWidth, targetWidth);
+			inlineScroll = alignNearest(
+				left,
+				right,
+				width,
+				borderLeft,
+				borderRight + scrollbarWidth,
+				targetInline,
+				targetInline + targetWidth,
+				targetWidth
+			);
 		}
 
 		const {scrollLeft, scrollTop} = scroller;
