@@ -1,3 +1,9 @@
+## [2.0.8](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.7...v2.0.8) (2019-06-21)
+
+### Bug Fixes
+
+- **typings:** fixes issue that would lead to Typescript errors due to global namespace annotations ([75fd236](https://github.com/wessberg/scroll-behavior-polyfill/commit/75fd236))
+
 ## [2.0.7](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.6...v2.0.7) (2019-02-23)
 
 ### Bug Fixes
