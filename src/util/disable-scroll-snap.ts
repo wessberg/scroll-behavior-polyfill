@@ -20,11 +20,11 @@ const NOOP: DisableScrollSnapResult = {
 	reset: () => {}
 };
 
-const map = new WeakMap<ScrollSnappable, DisableScrollSnapReleaser>();
+const map = typeof WeakMap === "undefined" ? undefined : new WeakMap<ScrollSnappable, DisableScrollSnapReleaser>();
 
 export function disableScrollSnap(scroller: ScrollSnappable): DisableScrollSnapResult {
-	// If scroll-behavior is natively supported, there's no need for this fix
-	if (SUPPORTS_SCROLL_BEHAVIOR) {
+	// If scroll-behavior is natively supported, or if there is no native WeakMap support, there's no need for this fix
+	if (SUPPORTS_SCROLL_BEHAVIOR || map == null) {
 		return NOOP;
 	}
 
@@ -80,7 +80,9 @@ export function disableScrollSnap(scroller: ScrollSnappable): DisableScrollSnapR
 
 	function release() {
 		eventTarget.removeEventListener("scroll", resetHandler);
-		map.delete(scroller);
+		if (map != null) {
+			map.delete(scroller);
+		}
 		hasReleased = true;
 	}
 
