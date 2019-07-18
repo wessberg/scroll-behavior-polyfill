@@ -1,3 +1,9 @@
+## [2.0.10](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.9...v2.0.10) (2019-07-18)
+
+### Bug Fixes
+
+- **bug:** makes it possible to use the polyfill without native WeakMap support ([012b486](https://github.com/wessberg/scroll-behavior-polyfill/commit/012b486))
+
 ## [2.0.9](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.8...v2.0.9) (2019-07-18)
 
 ### Bug Fixes

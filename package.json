@@ -1,6 +1,6 @@
 {
 	"name": "scroll-behavior-polyfill",
-	"version": "2.0.9",
+	"version": "2.0.10",
 	"description": "A polyfill for the 'scroll-behavior' CSS-property",
 	"repository": {
 		"type": "git",
