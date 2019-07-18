@@ -2,6 +2,8 @@ import {ISmoothScrollOptions} from "../smooth-scroll-options/i-smooth-scroll-opt
 import {now} from "../../util/now";
 import {ScrollMethodName} from "../../scroll-method/scroll-method-name";
 import {getOriginalScrollMethodForKind} from "../../scroll-method/get-original-scroll-method-for-kind";
+import {getScrollingElement} from "../../util/scrolling-element";
+import {ScrollSnappable} from "../../util/scroll-snappable";
 
 /**
  * Gets the Smooth Scroll Options to use for the step function
@@ -25,7 +27,8 @@ export function getSmoothScrollOptions(element: Element | Window, x: number, y: 
 			startY,
 			endX: Math.floor(kind === "scrollBy" ? startX + x : x),
 			endY: Math.floor(kind === "scrollBy" ? startY + y : y),
-			method: getOriginalScrollMethodForKind("scrollTo", window).bind(window)
+			method: getOriginalScrollMethodForKind("scrollTo", window).bind(window),
+			scroller: getScrollingElement() as ScrollSnappable
 		};
 	} else {
 		const {scrollLeft, scrollTop} = element;
@@ -37,7 +40,8 @@ export function getSmoothScrollOptions(element: Element | Window, x: number, y: 
 			startY,
 			endX: Math.floor(kind === "scrollBy" ? startX + x : x),
 			endY: Math.floor(kind === "scrollBy" ? startY + y : y),
-			method: getOriginalScrollMethodForKind("scrollTo", element).bind(element)
+			method: getOriginalScrollMethodForKind("scrollTo", element).bind(element),
+			scroller: element as ScrollSnappable
 		};
 	}
 }

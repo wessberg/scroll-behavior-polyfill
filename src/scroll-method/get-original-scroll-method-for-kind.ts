@@ -56,7 +56,7 @@ export function getOriginalScrollMethodForKind(kind: ScrollMethodName, element: 
 					return elementPrototypeScrollFallback;
 				}
 			} else {
-				return WINDOW_ORIGINAL_SCROLL;
+				return WINDOW_ORIGINAL_SCROLL!;
 			}
 
 		case "scrollBy":
@@ -67,7 +67,7 @@ export function getOriginalScrollMethodForKind(kind: ScrollMethodName, element: 
 					return elementPrototypeScrollByFallback;
 				}
 			} else {
-				return WINDOW_ORIGINAL_SCROLL_BY;
+				return WINDOW_ORIGINAL_SCROLL_BY!;
 			}
 
 		case "scrollTo":
@@ -78,7 +78,7 @@ export function getOriginalScrollMethodForKind(kind: ScrollMethodName, element: 
 					return elementPrototypeScrollToFallback;
 				}
 			} else {
-				return WINDOW_ORIGINAL_SCROLL_TO;
+				return WINDOW_ORIGINAL_SCROLL_TO!;
 			}
 	}
 }

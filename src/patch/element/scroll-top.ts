@@ -8,7 +8,7 @@ export function patchElementScrollTop(): void {
 	Object.defineProperty(Element.prototype, "scrollTop", {
 		set(scrollTop: number) {
 			if (this.__adjustingScrollPosition) {
-				return ELEMENT_ORIGINAL_SCROLL_TOP_SET_DESCRIPTOR.call(this, scrollTop);
+				return ELEMENT_ORIGINAL_SCROLL_TOP_SET_DESCRIPTOR!.call(this, scrollTop);
 			}
 
 			handleScrollMethod(this, "scrollTo", this.scrollLeft, scrollTop);

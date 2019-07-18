@@ -1,6 +1,7 @@
+import {getScrollingElement} from "./scrolling-element";
+import {parseScrollBehaviorFromStyleAttribute} from "./attribute";
+
 const styleDeclarationPropertyName = "scrollBehavior" as keyof CSSStyleDeclaration;
-const styleAttributePropertyName = "scroll-behavior";
-const styleAttributePropertyNameRegex = new RegExp(`${styleAttributePropertyName}:\\s*([^;]*)`);
 export type ScrollBehaviorRawValue = ScrollBehavior | null | "";
 
 /**
@@ -14,7 +15,7 @@ export function getScrollBehavior(inputTarget: Element | HTMLElement | Window, o
 	// If the given 'behavior' is 'smooth', apply smooth scrolling no matter what
 	if (options != null && options.behavior === "smooth") return "smooth";
 
-	const target: HTMLElement = "style" in inputTarget ? inputTarget : document.scrollingElement != null ? (document.scrollingElement as HTMLElement) : document.documentElement;
+	const target: HTMLElement = "style" in inputTarget ? inputTarget : getScrollingElement();
 
 	let value: ScrollBehavior | undefined;
 
@@ -36,16 +37,7 @@ export function getScrollBehavior(inputTarget: Element | HTMLElement | Window, o
 
 	if (value == null) {
 		// Otherwise, check if it is set as an inline style
-		const styleAttributeValue = target.getAttribute("style");
-		if (styleAttributeValue != null && styleAttributeValue.includes(styleAttributePropertyName)) {
-			const match = styleAttributeValue.match(styleAttributePropertyNameRegex);
-			if (match != null) {
-				const [, behavior] = match;
-				if (behavior != null && behavior !== "") {
-					value = behavior as ScrollBehavior;
-				}
-			}
-		}
+		value = parseScrollBehaviorFromStyleAttribute(target);
 	}
 
 	if (value == null) {

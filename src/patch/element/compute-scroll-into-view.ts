@@ -2,6 +2,7 @@
  * The majority of this file is based on https://github.com/stipsan/compute-scroll-into-view (MIT license),
  * but has been rewritten to accept a scroller as an argument.
  */
+import {getScrollingElement} from "../../util/scrolling-element";
 
 // tslint:disable
 
@@ -161,7 +162,7 @@ export function computeScrollIntoView(target: Element, scroller: Element, option
 	const {block, inline} = options;
 
 	// Used to handle the top most element that can be scrolled
-	const scrollingElement = document.scrollingElement || document.documentElement;
+	const scrollingElement = getScrollingElement();
 
 	// Support pinch-zooming properly, making sure elements scroll into the visual viewport
 	// Browsers that don't support visualViewport will report the layout viewport dimensions on document.documentElement.clientWidth/Height

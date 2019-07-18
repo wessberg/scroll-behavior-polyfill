@@ -1,7 +1,6 @@
 import {getParent} from "./get-parent";
 import {getScrollBehavior} from "./get-scroll-behavior";
-
-const scrollingElement = document.scrollingElement != null ? document.scrollingElement : document.documentElement;
+import {getScrollingElement} from "./scrolling-element";
 
 /**
  * Returns true if the given overflow property represents a scrollable overflow value
@@ -33,6 +32,7 @@ function isScrollable(element: Element) {
  */
 export function findNearestAncestorsWithScrollBehavior(target: Element | HTMLElement): [Element | HTMLElement, ScrollBehavior] {
 	let currentElement: Element | HTMLElement = target;
+	const scrollingElement = getScrollingElement();
 
 	while (currentElement != null) {
 		const behavior = getScrollBehavior(currentElement);

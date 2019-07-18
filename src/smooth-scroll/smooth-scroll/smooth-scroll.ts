@@ -1,5 +1,6 @@
 import {ISmoothScrollOptions} from "../smooth-scroll-options/i-smooth-scroll-options";
 import {ease} from "../../util/easing";
+import {disableScrollSnap, DisableScrollSnapResult} from "../../util/disable-scroll-snap";
 
 /**
  * The duration of a smooth scroll
@@ -12,7 +13,7 @@ const SCROLL_TIME = 15000;
  * @param {ISmoothScrollOptions} options
  */
 export function smoothScroll(options: ISmoothScrollOptions): void {
-	const {startTime, startX, startY, endX, endY, method} = options;
+	const {startTime, startX, startY, endX, endY, method, scroller} = options;
 
 	let timeLapsed = 0;
 	let start: number | undefined;
@@ -20,6 +21,9 @@ export function smoothScroll(options: ISmoothScrollOptions): void {
 	const distanceX = endX - startX;
 	const distanceY = endY - startY;
 	const speed = Math.max(Math.abs((distanceX / 1000) * SCROLL_TIME), Math.abs((distanceY / 1000) * SCROLL_TIME));
+
+	// Temporarily disables any scroll snapping that may be active since it fights for control over the scroller with this polyfill
+	let scrollSnapFix: DisableScrollSnapResult | undefined = disableScrollSnap(scroller);
 
 	requestAnimationFrame(function animate(timestamp: number) {
 		if (start == null) {
@@ -35,6 +39,11 @@ export function smoothScroll(options: ISmoothScrollOptions): void {
 		if (positionX !== endX || positionY !== endY) {
 			requestAnimationFrame(animate);
 			start = timestamp;
+		} else {
+			if (scrollSnapFix != null) {
+				scrollSnapFix.reset();
+				scrollSnapFix = undefined;
+			}
 		}
 	});
 }
