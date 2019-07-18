@@ -1,3 +1,9 @@
+## [2.0.9](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.8...v2.0.9) (2019-07-18)
+
+### Bug Fixes
+
+- **bug:** fixes an issue when using this polyfill along with css-scroll-snap. Closes [#5](https://github.com/wessberg/scroll-behavior-polyfill/issues/5) ([c50582b](https://github.com/wessberg/scroll-behavior-polyfill/commit/c50582b)), closes [#7](https://github.com/wessberg/scroll-behavior-polyfill/issues/7)
+
 ## [2.0.8](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.7...v2.0.8) (2019-06-21)
 
 ### Bug Fixes
