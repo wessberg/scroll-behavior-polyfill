@@ -1,3 +1,9 @@
+## [2.0.11](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.10...v2.0.11) (2019-08-12)
+
+### Bug Fixes
+
+- **declarations:** marks declarations as a module to help with async imports. Closes [#8](https://github.com/wessberg/scroll-behavior-polyfill/issues/8) ([ac1e99e](https://github.com/wessberg/scroll-behavior-polyfill/commit/ac1e99e))
+
 ## [2.0.10](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.9...v2.0.10) (2019-07-18)
 
 ### Bug Fixes
