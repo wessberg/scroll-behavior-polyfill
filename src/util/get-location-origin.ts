@@ -7,5 +7,7 @@ export function getLocationOrigin(locationLike: Location | HTMLAnchorElement = l
 		return locationLike.origin;
 	}
 
-	return `${locationLike.protocol}//${locationLike.hostname}${locationLike.port ? ":" + locationLike.port : ""}`;
+	return `${locationLike.protocol}//${locationLike.hostname}${
+		locationLike.port != null && locationLike.port.length > 0 ? ":" + locationLike.port : ""
+	}`;
 }
