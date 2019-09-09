@@ -1,3 +1,9 @@
+## [2.0.12](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.11...v2.0.12) (2019-09-09)
+
+### Bug Fixes
+
+- anchor detection if the link also contains a path fails. Closes [#9](https://github.com/wessberg/scroll-behavior-polyfill/issues/9) ([4b14f30](https://github.com/wessberg/scroll-behavior-polyfill/commit/4b14f30))
+
 ## [2.0.11](https://github.com/wessberg/scroll-behavior-polyfill/compare/v2.0.10...v2.0.11) (2019-08-12)
 
 ### Bug Fixes
