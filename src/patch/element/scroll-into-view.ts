@@ -46,4 +46,9 @@ export function patchElementScrollIntoView(): void {
 			...computeScrollIntoView(this, ancestorWithScroll, normalizedOptions)
 		});
 	};
+
+	// On IE11, HTMLElement has its own declaration of scrollIntoView and does not inherit this from the prototype chain, so we'll need to patch that one too.
+	if (HTMLElement.prototype.scrollIntoView != null && HTMLElement.prototype.scrollIntoView !== Element.prototype.scrollIntoView) {
+		HTMLElement.prototype.scrollIntoView = Element.prototype.scrollIntoView;
+	}
 }

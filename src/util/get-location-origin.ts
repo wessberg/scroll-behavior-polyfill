@@ -7,7 +7,13 @@ export function getLocationOrigin(locationLike: Location | HTMLAnchorElement = l
 		return locationLike.origin;
 	}
 
-	return `${locationLike.protocol}//${locationLike.hostname}${
-		locationLike.port != null && locationLike.port.length > 0 ? ":" + locationLike.port : ""
-	}`;
+	let port = locationLike.port != null && locationLike.port.length > 0 ? `:${locationLike.port}` : "";
+
+	if (locationLike.protocol === "http:" && port === ":80") {
+		port = "";
+	} else if (locationLike.protocol === "https:" && port === ":443") {
+		port = "";
+	}
+
+	return `${locationLike.protocol}//${locationLike.hostname}${port}`;
 }
