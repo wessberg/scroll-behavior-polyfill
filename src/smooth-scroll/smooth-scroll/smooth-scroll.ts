@@ -3,10 +3,10 @@ import {ease} from "../../util/easing";
 import {disableScrollSnap, DisableScrollSnapResult} from "../../util/disable-scroll-snap";
 
 /**
- * The duration of a smooth scroll
+ * The duration of a smooth scroll in ms
  * @type {number}
  */
-const SCROLL_TIME = 15000;
+const SCROLL_TIME = 250;
 
 /**
  * Performs a smooth repositioning of the scroll
@@ -20,7 +20,6 @@ export function smoothScroll(options: ISmoothScrollOptions): void {
 
 	const distanceX = endX - startX;
 	const distanceY = endY - startY;
-	const speed = Math.max(Math.abs((distanceX / 1000) * SCROLL_TIME), Math.abs((distanceY / 1000) * SCROLL_TIME));
 
 	// Temporarily disables any scroll snapping that may be active since it fights for control over the scroller with this polyfill
 	let scrollSnapFix: DisableScrollSnapResult | undefined = disableScrollSnap(scroller);
@@ -30,7 +29,7 @@ export function smoothScroll(options: ISmoothScrollOptions): void {
 			start = timestamp;
 		}
 		timeLapsed += timestamp - startTime;
-		const percentage = Math.max(0, Math.min(1, speed === 0 ? 0 : timeLapsed / speed));
+		const percentage = Math.max(0, Math.min(1, timeLapsed / SCROLL_TIME));
 		const positionX = Math.floor(startX + distanceX * ease(percentage));
 		const positionY = Math.floor(startY + distanceY * ease(percentage));
 
