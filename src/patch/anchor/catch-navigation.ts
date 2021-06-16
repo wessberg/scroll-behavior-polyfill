@@ -31,7 +31,13 @@ export function catchNavigation(): void {
 		const root = findNearestRoot(e.target);
 
 		// Attempt to match the selector from that root. querySelector' doesn't support IDs that start with a digit, so work around that limitation
-		const elementMatch = hash.match(ID_WITH_LEADING_DIGIT_REGEXP) != null ? root.getElementById(hash.slice(1)) : root.querySelector(hash);
+		let elementMatch: HTMLElement | null = null;
+
+		try {
+			elementMatch = hash.match(ID_WITH_LEADING_DIGIT_REGEXP) != null ? root.getElementById(hash.slice(1)) : root.querySelector(hash);
+		} catch {
+			// hash may contain a string that is not an element ID which may cause the selector to return an error if it contains anything disallowed in a selector
+		}
 
 		// If no selector could be found, don't proceed
 		if (elementMatch == null) return;
