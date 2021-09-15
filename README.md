@@ -83,13 +83,13 @@ This polyfill also implements the extensions to the Element interface in the [CS
 ### NPM
 
 ```
-$ npm install scroll-behavior-polyfill
+npm install scroll-behavior-polyfill`
 ```
 
 ### Yarn
 
 ```
-$ yarn add scroll-behavior-polyfill
+yarn add scroll-behavior-polyfill
 ```
 
 <!-- SHADOW_SECTION_INSTALL_END -->
